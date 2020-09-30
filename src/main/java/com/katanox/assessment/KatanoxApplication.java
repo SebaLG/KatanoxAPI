@@ -8,6 +8,7 @@ public class KatanoxApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KatanoxApplication.class, args);
+		System.out.println("Hello Katanox!");
 	}
 
 }
