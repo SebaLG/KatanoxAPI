@@ -1,7 +1,6 @@
 package com.katanox.assessment.metavendors;
 
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public enum MetaVendorType {
 
     //We can avoid iterating the enum values by using a Map to cache the labels
     static {
-        for (MetaVendorType e: values()) {
+        for (MetaVendorType e : values()) {
             BY_LABEL.put(e.label, e);
         }
     }

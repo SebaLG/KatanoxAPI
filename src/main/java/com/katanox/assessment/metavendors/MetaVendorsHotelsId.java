@@ -18,6 +18,7 @@ public class MetaVendorsHotelsId implements Serializable {
     private Long hotelId;
 
 
+    //The @Embeddable type must override the default equals and hashCode methods based on the two Primary Key identifier values.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
