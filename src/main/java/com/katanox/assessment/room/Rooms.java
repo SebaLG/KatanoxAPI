@@ -39,6 +39,7 @@ public class Rooms {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "rooms_hotel_id_foreign"))
     private Hotels hotel;
 
 }

@@ -1,7 +1,6 @@
 package com.katanox.assessment.metavendors;
 
 
-import com.katanox.assessment.room.Rooms;
 import lombok.Data;
 
 import javax.persistence.*;
