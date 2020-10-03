@@ -1,7 +1,7 @@
 package com.katanox.assessment.ari;
 
 import com.katanox.assessment.ari.dto.AriPms0DTO;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/v1/")
 public class AriController {
 
+    @Autowired
+    private AriService  ariService;
+
     @PostMapping(path = "pms0/ari", consumes = "application/json", produces = "application/json")
     public ResponseEntity<AriPms0DTO> createAriPms0(@RequestBody AriPms0DTO ariPms0DTO) {
+        Ari ari = ariService.createPms0Ari(ariPms0DTO);
         return ResponseEntity.ok(ariPms0DTO);
     }
 

@@ -20,7 +20,7 @@ public class AriPms0DTO {
 
     //Static inner Rate class
     @Data
-    static public class RatePms0DTO {
+    public static class RatePms0DTO {
 
         @NotNull
         private String roomId;
@@ -40,7 +40,7 @@ public class AriPms0DTO {
 
         //Static inner Price class
         @Data
-        public class RestrictionPms0DTO {
+        public static class RestrictionPms0DTO {
             private Integer minLengthOfStay;
 
             private Integer maxLengthOfStay;
@@ -48,7 +48,7 @@ public class AriPms0DTO {
 
         //Static inner Price class
         @Data
-        public class PricePms0DTO {
+        public static class PricePms0DTO {
             @NotNull
             private BigDecimal grossAmount;
 

@@ -46,5 +46,9 @@ public class Ari {
 
     private Integer maxLengthOfStay;
 
+    public static class AriBuilder {
+    }
+
+
 
 }
