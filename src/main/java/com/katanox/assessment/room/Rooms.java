@@ -1,10 +1,12 @@
 package com.katanox.assessment.room;
 
+import com.katanox.assessment.ari.Ari;
 import com.katanox.assessment.hotel.Hotels;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Data
 @Entity
@@ -38,4 +40,7 @@ public class Rooms {
   @ManyToOne
   @JoinColumn(foreignKey = @ForeignKey(name = "rooms_hotel_id_foreign"))
   private Hotels hotel;
+
+  @OneToMany(mappedBy = "room", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+  private Set<Ari> ari;
 }

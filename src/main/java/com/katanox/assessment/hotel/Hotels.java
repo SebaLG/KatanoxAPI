@@ -22,7 +22,6 @@ public class Hotels {
   @Column(name = "address_line_1")
   private String addressLine1;
 
-  @NotNull
   @Column(name = "address_line_2")
   private String addressLine2;
 

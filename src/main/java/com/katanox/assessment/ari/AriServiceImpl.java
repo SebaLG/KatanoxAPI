@@ -2,24 +2,33 @@ package com.katanox.assessment.ari;
 
 import com.katanox.assessment.ari.dto.AriPms0DTO;
 import com.katanox.assessment.ari.dto.AriPms1DTO;
+import com.katanox.assessment.exceptions.RoomNotFoundException;
+import com.katanox.assessment.room.Rooms;
+import com.katanox.assessment.room.RoomsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class AriServiceImpl implements AriService {
 
   @Autowired private AriRepository ariRepository;
+  @Autowired private RoomsRepository roomsRepository;
 
   @Override
-  public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO) {
+  public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO){
     List<Ari> arisToPersist = new ArrayList<>();
     String hotelID = ariPms0DTO.getHotelId();
-    // Map AriPms0DTO to Ari
-    ariPms0DTO.getRates().stream()
-        .forEach(rate -> arisToPersist.add(createAriFromAriPms0DTO(hotelID, rate)));
+
+    for (AriPms0DTO.RatePms0DTO rate : ariPms0DTO.getRates()) {
+      // Map AriPms0DTO to Ari
+      arisToPersist.add(createAriFromAriPms0DTO(hotelID, rate));
+    }
+
     // Persist Ari List
     return saveAris(arisToPersist);
   }
@@ -37,11 +46,13 @@ public class AriServiceImpl implements AriService {
 
   /** * PRIVATE METHODS ** */
   private Ari createAriFromAriPms0DTO(String hotelId, AriPms0DTO.RatePms0DTO rate) {
+    Rooms room = roomsRepository.findByVendorHotelIdAndVendorRoomId(hotelId, rate.getRoomId());
+    if (room == null) throw new RoomNotFoundException();
+
     // Using the Builder Pattern provided by Lombok with the annotation @Builder
     return Ari.builder()
+        .room(room)
         .ratePlanId(rate.getRatePlanId())
-        .hotelId(hotelId)
-        .roomId(rate.getRoomId())
         .from(rate.getFrom())
         .to(rate.getTo())
         .numberOfRoomsAvailable(rate.getAvailable())
@@ -53,10 +64,12 @@ public class AriServiceImpl implements AriService {
   }
 
   private Ari createAriFromAriPms1DTO(String hotelId, AriPms1DTO.RatePms1DTO rate) {
+    Rooms room = roomsRepository.findByVendorHotelIdAndVendorRoomId(hotelId, rate.getRoomId());
+    if (room == null) throw new RoomNotFoundException();
+
     // Using the Builder Pattern provided by Lombok with the annotation @Builder
     return Ari.builder()
-        .hotelId(hotelId)
-        .roomId(rate.getRoomId())
+        .room(room)
         .from(rate.getFrom())
         .to(rate.getTo())
         .price(rate.getPrice())

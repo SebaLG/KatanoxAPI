@@ -2,7 +2,9 @@ package com.katanox.assessment.ari.dto;
 
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +14,7 @@ public class AriPms0DTO {
 
   @NotNull private String hotelId;
 
-  @NotNull private ArrayList<RatePms0DTO> rates;
+  @Valid @NotNull private ArrayList<RatePms0DTO> rates;
 
   // Static inner Rate class
   @Data
@@ -26,24 +28,24 @@ public class AriPms0DTO {
 
     @NotNull private Date to;
 
-    @NotNull private Integer available;
+    @NotNull @Positive private Integer available;
 
-    private PricePms0DTO price;
+    @Valid private PricePms0DTO price;
 
-    private RestrictionPms0DTO restrictions;
+    @Valid private RestrictionPms0DTO restrictions;
 
     // Static inner Price class
     @Data
     public static class RestrictionPms0DTO {
-      private Integer minLengthOfStay;
+      private @Positive Integer minLengthOfStay;
 
-      private Integer maxLengthOfStay;
+      private @Positive Integer maxLengthOfStay;
     }
 
     // Static inner Price class
     @Data
     public static class PricePms0DTO {
-      @NotNull private BigDecimal grossAmount;
+      @NotNull @Positive private BigDecimal grossAmount;
 
       @NotNull private String currency;
     }

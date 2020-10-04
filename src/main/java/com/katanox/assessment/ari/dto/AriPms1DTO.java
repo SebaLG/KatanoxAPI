@@ -4,7 +4,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +19,7 @@ public class AriPms1DTO {
   @JacksonXmlProperty(localName = "id")
   private String hotelId;
 
-  @NotNull private ArrayList<RatePms1DTO> rates;
+  @Valid @NotNull private ArrayList<RatePms1DTO> rates;
 
   // Static inner Rate class
   @Data
@@ -30,12 +32,12 @@ public class AriPms1DTO {
 
     @NotNull private Date to;
 
-    @NotNull private Integer numberOfRoomsAvailable;
+    @NotNull @Positive private Integer numberOfRoomsAvailable;
 
-    @NotNull private BigDecimal price;
+    @NotNull @Positive private BigDecimal price;
 
     @NotNull private String currency;
 
-    private Integer minLengthOfStay;
+    private @Positive Integer minLengthOfStay;
   }
 }

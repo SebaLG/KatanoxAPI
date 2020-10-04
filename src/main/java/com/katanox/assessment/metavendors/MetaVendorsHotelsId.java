@@ -11,8 +11,8 @@ import java.util.Objects;
 @Embeddable
 public class MetaVendorsHotelsId implements Serializable {
 
-  @Column(name = "meta_vendors_id")
-  private Long metaVendorsId;
+  @Column(name = "metavendor_id")
+  private Long metaVendorId;
 
   @Column(name = "hotel_id")
   private Long hotelId;
@@ -26,12 +26,12 @@ public class MetaVendorsHotelsId implements Serializable {
     if (o == null || getClass() != o.getClass()) return false;
 
     MetaVendorsHotelsId that = (MetaVendorsHotelsId) o;
-    return Objects.equals(metaVendorsId, that.metaVendorsId)
+    return Objects.equals(metaVendorId, that.metaVendorId)
         && Objects.equals(hotelId, that.hotelId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(metaVendorsId, hotelId);
+    return Objects.hash(metaVendorId, hotelId);
   }
 }

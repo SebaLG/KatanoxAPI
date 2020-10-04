@@ -18,7 +18,7 @@ public class MetaVendorsHotels {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(foreignKey = @ForeignKey(name = "integrations_meta_vendors_id_foreign"))
-  @MapsId("meta_vendors_id")
+  @MapsId("metavendor_id")
   private MetaVendors metaVendor;
 
   @ManyToOne(fetch = FetchType.LAZY)
