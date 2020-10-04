@@ -1,5 +1,6 @@
 package com.katanox.assessment.ari;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
+@Builder
 @Entity
 public class Ari {
 
@@ -16,6 +18,7 @@ public class Ari {
     private Long id;
 
     @NotNull
+    @Column(name = "rate_plan_id")
     private String ratePlanId;
 
     @NotNull
@@ -24,13 +27,15 @@ public class Ari {
     @NotNull
     private String roomId;
 
-
+    //'From' is a reserved word in Postgre, so we need to define a different name
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "available_from")
     private Date from;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "available_to")
     private Date to;
 
     @NotNull
@@ -39,16 +44,13 @@ public class Ari {
     @NotNull
     private String currency;
 
-    @NotNull
+    @Column(name = "number_of_rooms_available")
     private Integer numberOfRoomsAvailable;
 
+    @Column(name = "min_length_of_stay")
     private Integer minLengthOfStay;
 
+    @Column(name = "max_length_of_stay")
     private Integer maxLengthOfStay;
-
-    public static class AriBuilder {
-    }
-
-
 
 }

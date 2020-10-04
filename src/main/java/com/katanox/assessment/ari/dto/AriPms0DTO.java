@@ -23,6 +23,9 @@ public class AriPms0DTO {
     public static class RatePms0DTO {
 
         @NotNull
+        private String ratePlanId;
+
+        @NotNull
         private String roomId;
 
         @NotNull
