@@ -64,7 +64,6 @@ public class Ari {
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedAt;
 
-
   @PrePersist
   protected void prePersist() {
     if (this.createdOn == null) createdOn = new Date();

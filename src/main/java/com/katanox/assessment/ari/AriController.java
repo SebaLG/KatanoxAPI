@@ -21,9 +21,10 @@ public class AriController {
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> createAriPms0(@Valid @RequestBody AriPms0DTO ariPms0DTO) {
-   List<Ari> aris = ariService.createPms0Ari(ariPms0DTO);
-    //TODO Response with the DTO
-    return ResponseEntity.ok(ResponseUtil.createJSONResponse(AriConstants.ARI_SUCCESSFULLY_CREATED_MSG));
+    List<Ari> aris = ariService.createPms0Ari(ariPms0DTO);
+    // TODO Response with the DTO
+    return ResponseEntity.ok(
+        ResponseUtil.createJSONResponse(AriConstants.ARI_SUCCESSFULLY_CREATED_MSG));
   }
 
   @PutMapping(
@@ -32,11 +33,8 @@ public class AriController {
       produces = MediaType.APPLICATION_XML_VALUE)
   public ResponseEntity<String> createAriPms1(@Valid @RequestBody AriPms1DTO ariPms1DTO) {
     List<Ari> aris = ariService.createPms1Ari(ariPms1DTO);
-    //TODO Response with the DTO
-    return ResponseEntity.ok(ResponseUtil.createXMLResponse(AriConstants.ARI_SUCCESSFULLY_CREATED_MSG));
+    // TODO Response with the DTO
+    return ResponseEntity.ok(
+        ResponseUtil.createXMLResponse(AriConstants.ARI_SUCCESSFULLY_CREATED_MSG));
   }
-
-
-
-
 }

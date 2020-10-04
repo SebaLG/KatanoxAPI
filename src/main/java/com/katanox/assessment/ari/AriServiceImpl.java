@@ -20,7 +20,7 @@ public class AriServiceImpl implements AriService {
   @Autowired private RoomsRepository roomsRepository;
 
   @Override
-  public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO){
+  public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO) {
     List<Ari> arisToPersist = new ArrayList<>();
     String hotelID = ariPms0DTO.getHotelId();
 
