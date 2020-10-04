@@ -10,57 +10,42 @@ import java.util.Date;
 @Data
 public class AriPms0DTO {
 
+  @NotNull private String hotelId;
 
-    @NotNull
-    private String hotelId;
+  @NotNull private ArrayList<RatePms0DTO> rates;
 
+  // Static inner Rate class
+  @Data
+  public static class RatePms0DTO {
 
-    @NotNull
-    private ArrayList<RatePms0DTO> rates;
+    @NotNull private String ratePlanId;
 
-    //Static inner Rate class
+    @NotNull private String roomId;
+
+    @NotNull private Date from;
+
+    @NotNull private Date to;
+
+    @NotNull private Integer available;
+
+    private PricePms0DTO price;
+
+    private RestrictionPms0DTO restrictions;
+
+    // Static inner Price class
     @Data
-    public static class RatePms0DTO {
+    public static class RestrictionPms0DTO {
+      private Integer minLengthOfStay;
 
-        @NotNull
-        private String ratePlanId;
-
-        @NotNull
-        private String roomId;
-
-        @NotNull
-        private Date from;
-
-        @NotNull
-        private Date to;
-
-        @NotNull
-        private Integer available;
-
-        private PricePms0DTO price;
-
-        private RestrictionPms0DTO restrictions;
-
-        //Static inner Price class
-        @Data
-        public static class RestrictionPms0DTO {
-            private Integer minLengthOfStay;
-
-            private Integer maxLengthOfStay;
-        }
-
-        //Static inner Price class
-        @Data
-        public static class PricePms0DTO {
-            @NotNull
-            private BigDecimal grossAmount;
-
-            @NotNull
-            private String currency;
-        }
-
-
+      private Integer maxLengthOfStay;
     }
 
+    // Static inner Price class
+    @Data
+    public static class PricePms0DTO {
+      @NotNull private BigDecimal grossAmount;
 
+      @NotNull private String currency;
+    }
+  }
 }

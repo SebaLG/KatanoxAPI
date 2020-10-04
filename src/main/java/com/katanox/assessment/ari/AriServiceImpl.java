@@ -1,6 +1,7 @@
 package com.katanox.assessment.ari;
 
 import com.katanox.assessment.ari.dto.AriPms0DTO;
+import com.katanox.assessment.ari.dto.AriPms1DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,39 +11,65 @@ import java.util.List;
 @Service
 public class AriServiceImpl implements AriService {
 
-    @Autowired
-    private AriRepository ariRepository;
+  @Autowired private AriRepository ariRepository;
 
+  @Override
+  public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO) {
+    List<Ari> arisToPersist = new ArrayList<>();
+    String hotelID = ariPms0DTO.getHotelId();
+    // Map AriPms0DTO to Ari
+    ariPms0DTO.getRates().stream()
+        .forEach(rate -> arisToPersist.add(createAriFromAriPms0DTO(hotelID, rate)));
+    // Persist Ari List
+    return saveAris(arisToPersist);
+  }
 
-    @Override
-    public List<Ari> createPms0Ari(AriPms0DTO ariPms0DTO) {
-        List<Ari> arisToPersist = new ArrayList<>();
-        String hotelID = ariPms0DTO.getHotelId();
-        // Map AriPms0DTO to Ari
-        ariPms0DTO.getRates().stream().forEach(rate -> arisToPersist.add(createAriFromAriPms0DTO(hotelID, rate)));
-        // Persist Ari List
-        return saveAris(arisToPersist);
-    }
+  @Override
+  public List<Ari> createPms1Ari(AriPms1DTO ariPms1DTO) {
+    List<Ari> arisToPersist = new ArrayList<>();
+    String hotelID = ariPms1DTO.getHotelId();
+    // Map AriPms1DTO to Ari
+    ariPms1DTO.getRates().stream()
+        .forEach(rate -> arisToPersist.add(createAriFromAriPms1DTO(hotelID, rate)));
+    // Persist Ari List
+    return saveAris(arisToPersist);
+  }
 
+  /** * PRIVATE METHODS ** */
+  private Ari createAriFromAriPms0DTO(String hotelId, AriPms0DTO.RatePms0DTO rate) {
+    // Using the Builder Pattern provided by Lombok with the annotation @Builder
+    return Ari.builder()
+        .ratePlanId(rate.getRatePlanId())
+        .hotelId(hotelId)
+        .roomId(rate.getRoomId())
+        .from(rate.getFrom())
+        .to(rate.getTo())
+        .numberOfRoomsAvailable(rate.getAvailable())
+        .price(rate.getPrice().getGrossAmount())
+        .currency(rate.getPrice().getCurrency())
+        .minLengthOfStay(rate.getRestrictions().getMinLengthOfStay())
+        .maxLengthOfStay(rate.getRestrictions().getMaxLengthOfStay())
+        .build();
+  }
 
-    private Ari createAriFromAriPms0DTO(String hotelId, AriPms0DTO.RatePms0DTO rate) {
-        return Ari.builder()
-                .ratePlanId(rate.getRatePlanId())
-                .hotelId(hotelId)
-                .roomId(rate.getRoomId())
-                .from(rate.getFrom())
-                .to(rate.getTo())
-                .price(rate.getPrice().getGrossAmount())
-                .currency(rate.getPrice().getCurrency())
-                .minLengthOfStay(rate.getRestrictions().getMinLengthOfStay())
-                .maxLengthOfStay(rate.getRestrictions().getMaxLengthOfStay())
-                .build();
-    }
+  private Ari createAriFromAriPms1DTO(String hotelId, AriPms1DTO.RatePms1DTO rate) {
+    // Using the Builder Pattern provided by Lombok with the annotation @Builder
+    return Ari.builder()
+        .hotelId(hotelId)
+        .roomId(rate.getRoomId())
+        .from(rate.getFrom())
+        .to(rate.getTo())
+        .price(rate.getPrice())
+        .currency(rate.getCurrency())
+        .minLengthOfStay(rate.getMinLengthOfStay())
+        .numberOfRoomsAvailable(rate.getNumberOfRoomsAvailable())
+        .build();
+  }
 
-    private List<Ari> saveAris(List<Ari> aris) {
-        List<Ari> arisPersisted = new ArrayList<>();
-        //Persist the ari and store the repository result in the arisPersisted List
-        aris.stream().forEach(ariToPersist -> arisPersisted.add(ariRepository.save(ariToPersist)));
-        return arisPersisted;
-    }
+  private List<Ari> saveAris(List<Ari> aris) {
+    List<Ari> arisPersisted = new ArrayList<>();
+    // Persist the ari and store the repository result in the arisPersisted List
+    aris.stream().forEach(ariToPersist -> arisPersisted.add(ariRepository.save(ariToPersist)));
+    return arisPersisted;
+  }
 }

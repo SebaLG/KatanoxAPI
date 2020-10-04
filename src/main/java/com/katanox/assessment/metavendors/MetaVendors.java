@@ -1,6 +1,5 @@
 package com.katanox.assessment.metavendors;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,24 +10,20 @@ import java.util.Set;
 @Entity
 public class MetaVendors {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    @NotNull
-    private String name;
+  @NotNull private String name;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private MetaVendorType type;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  private MetaVendorType type;
 
-    @OneToMany(
-            mappedBy = "metaVendor",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
-    private Set<MetaVendorsHotels> metaVendorsHotels;
-
-
+  @OneToMany(
+      mappedBy = "metaVendor",
+      cascade = CascadeType.ALL,
+      fetch = FetchType.LAZY,
+      orphanRemoval = true)
+  private Set<MetaVendorsHotels> metaVendorsHotels;
 }
