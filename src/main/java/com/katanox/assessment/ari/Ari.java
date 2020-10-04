@@ -53,4 +53,26 @@ public class Ari {
   @ManyToOne
   @JoinColumn(foreignKey = @ForeignKey(name = "ari_room_id_foreign"))
   private Rooms room;
+
+  @NotNull
+  @Column(name = "created_at")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdOn;
+
+  @NotNull
+  @Column(name = "updated_at")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updatedAt;
+
+
+  @PrePersist
+  protected void prePersist() {
+    if (this.createdOn == null) createdOn = new Date();
+    if (this.updatedAt == null) updatedAt = new Date();
+  }
+
+  @PreUpdate
+  protected void preUpdate() {
+    this.updatedAt = new Date();
+  }
 }
