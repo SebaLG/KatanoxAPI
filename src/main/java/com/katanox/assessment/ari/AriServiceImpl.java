@@ -47,7 +47,6 @@ public class AriServiceImpl implements AriService {
   /** * PRIVATE METHODS ** */
   private Ari createAriFromAriPms0DTO(String hotelId, AriPms0DTO.RatePms0DTO rate) {
     Rooms room = roomsRepository.findByVendorHotelIdAndVendorRoomId(hotelId, rate.getRoomId());
-    System.out.println(hotelId + rate.getRoomId());
     if (room == null) throw new RoomNotFoundException();
 
     // Using the Builder Pattern provided by Lombok with the annotation @Builder
